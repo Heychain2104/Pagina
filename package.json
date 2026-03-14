@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Foro en tiempo real con Node.js, SQLite y Socket.io",
   "main": "server.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "start": "node server.js"
   },
