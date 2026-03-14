@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foro - Registro/Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Bienvenido al Foro</h1>
+
+    <!-- Formulario de registro -->
+    <div id="register">
+      <h2>Registro</h2>
+      <input type="text" id="reg-username" placeholder="Usuario">
+      <input type="password" id="reg-password" placeholder="Contraseña">
+      <input type="file" id="reg-avatar" accept="image/*">
+      <button onclick="registerUser()">Registrarse</button>
+    </div>
+
+    <!-- Formulario de login -->
+    <div id="login">
+      <h2>Login</h2>
+      <input type="text" id="login-username" placeholder="Usuario">
+      <input type="password" id="login-password" placeholder="Contraseña">
+      <button onclick="loginUser()">Iniciar Sesión</button>
+    </div>
+
+    <p id="message"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
