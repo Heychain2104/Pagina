@@ -14,7 +14,7 @@ const db = new sqlite3.Database('./db.sqlite');
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static('.')); // Sirve archivos desde la raíz
 
 // Crear tablas si no existen
 db.serialize(() => {
