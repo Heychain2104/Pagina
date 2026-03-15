@@ -1,29 +1,36 @@
 <!DOCTYPE html>
-<script src="https://pagina-nutl.onrender.com/socket.io/socket.io.js"></script>
-<script src="client.js"></script>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Foro - Principal</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="header">
-    <span id="user-info"></span>
-    <button onclick="logout()">Cerrar Sesión</button>
-  </div>
 
-  <div class="container">
-    <h1>Foro General</h1>
-    <div id="forum">
-      <div id="messages"></div>
-      <input type="text" id="new-message" placeholder="Escribe un mensaje">
-      <button onclick="sendMessage()">Enviar</button>
-    </div>
-  </div>
+<div class="header">
+<span id="user-info"></span>
+<button onclick="logout()">Cerrar Sesión</button>
+</div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="client.js"></script>
+<div class="container">
+
+<h1>Foro General</h1>
+
+<div id="forum">
+<div id="messages"></div>
+
+<input type="text" id="new-message" placeholder="Escribe un mensaje">
+<button onclick="sendMessage()">Enviar</button>
+
+</div>
+
+</div>
+
+<script src="https://pagina-nutl.onrender.com/socket.io/socket.io.js"></script>
+<script src="client.js"></script>
+
 </body>
 </html>
