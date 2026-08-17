@@ -1,98 +1,80 @@
-// Verifica si hay usuario logueado
-if (window.location.pathname.endsWith("main.html")) {
-  const session = JSON.parse(localStorage.getItem("session"));
-  if (!session) {
-    window.location.href = "index.html";
-  } else {
-    document.getElementById("user-info").innerHTML = `
-      <img src="${session.avatar}" alt="Avatar"> ${session.username}
-    `;
-    loadMessages();
-  }
-}
+const typingText = document.getElementById("typing-text");
 
-// Función de registro
-function registerUser() {
-  const username = document.getElementById("reg-username").value;
-  const password = document.getElementById("reg-password").value;
-  const avatarInput = document.getElementById("reg-avatar");
+const text = "Log in with SecuroNova to continue";
 
-  if (!username || !password || !avatarInput.files[0]) {
-    document.getElementById("message").textContent = "Completa todos los campos";
-    return;
-  }
+let index = 0;
+let deleting = false;
 
-  const reader = new FileReader();
-  reader.onload = function() {
-    const avatar = reader.result;
+function typeWriter() {
 
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
+    if (!typingText) return;
 
-    // Verifica si usuario ya existe
-    if (users.find(u => u.username === username)) {
-      document.getElementById("message").textContent = "Usuario ya existe";
-      return;
+    if (!deleting) {
+
+        typingText.textContent = text.substring(0, index + 1);
+
+        index++;
+
+        if (index === text.length) {
+
+            setTimeout(() => {
+                deleting = true;
+                typeWriter();
+            }, 2500);
+
+            return;
+        }
+
+        setTimeout(typeWriter, 70);
+
+    } else {
+
+        typingText.textContent = text.substring(0, index - 1);
+
+        index--;
+
+        if (index === 0) {
+
+            deleting = false;
+
+            setTimeout(typeWriter, 700);
+
+            return;
+        }
+
+        setTimeout(typeWriter, 35);
     }
-
-    users.push({ username, password, avatar });
-    localStorage.setItem("users", JSON.stringify(users));
-
-    // Inicia sesión automáticamente
-    localStorage.setItem("session", JSON.stringify({ username, avatar }));
-    window.location.href = "main.html";
-  }
-  reader.readAsDataURL(avatarInput.files[0]);
 }
 
-// Función de login
-function loginUser() {
-  const username = document.getElementById("login-username").value;
-  const password = document.getElementById("login-password").value;
+typeWriter();
 
-  let users = JSON.parse(localStorage.getItem("users") || "[]");
-  const user = users.find(u => u.username === username && u.password === password);
 
-  if (!user) {
-    document.getElementById("message").textContent = "Usuario o contraseña incorrectos";
-    return;
-  }
+/* ==========================================
+   BOTÓN DISCORD
+   ========================================== */
 
-  localStorage.setItem("session", JSON.stringify({ username: user.username, avatar: user.avatar }));
-  window.location.href = "main.html";
-}
+const discordButton = document.getElementById("discord-login");
 
-// Función de logout
-function logout() {
-  localStorage.removeItem("session");
-  window.location.href = "index.html";
-}
+if (discordButton) {
 
-// Mensajes del foro
-function sendMessage() {
-  const messageInput = document.getElementById("new-message");
-  const text = messageInput.value.trim();
-  if (!text) return;
+    discordButton.addEventListener("click", () => {
 
-  const session = JSON.parse(localStorage.getItem("session"));
-  let messages = JSON.parse(localStorage.getItem("messages") || "[]");
+        discordButton.classList.add("loading");
 
-  messages.push({ username: session.username, avatar: session.avatar, text });
-  localStorage.setItem("messages", JSON.stringify(messages));
-  messageInput.value = "";
-  loadMessages();
-}
+        const originalText = discordButton.innerHTML;
 
-function loadMessages() {
-  const messages = JSON.parse(localStorage.getItem("messages") || "[]");
-  const messagesDiv = document.getElementById("messages");
-  messagesDiv.innerHTML = "";
+        discordButton.innerHTML = `
+            <span>Connecting to Discord...</span>
+        `;
 
-  messages.forEach(msg => {
-    const div = document.createElement("div");
-    div.classList.add("message");
-    div.innerHTML = `<img src="${msg.avatar}" alt="Avatar"> <strong>${msg.username}</strong>: ${msg.text}`;
-    messagesDiv.appendChild(div);
-  });
+        setTimeout(() => {
 
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            discordButton.innerHTML = originalText;
+
+            discordButton.classList.remove("loading");
+
+        }, 1500);
+
+    });
+
 }
