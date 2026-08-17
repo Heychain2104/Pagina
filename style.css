@@ -1,69 +1,644 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #100018;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   FONDO
+   ========================================== */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #310052 0%,
+            #190025 35%,
+            #0b0010 100%
+        );
+    z-index: -10;
+}
+
+.grid {
+    position: absolute;
+    inset: -50%;
+    opacity: 0.12;
+
+    background-image:
+        linear-gradient(rgba(180, 80, 255, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180, 80, 255, 0.25) 1px, transparent 1px);
+
+    background-size: 60px 60px;
+
+    transform: perspective(500px) rotateX(60deg);
+
+    animation: gridMove 18s linear infinite;
+}
+
+@keyframes gridMove {
+    from {
+        transform:
+            perspective(500px)
+            rotateX(60deg)
+            translateY(0);
+    }
+
+    to {
+        transform:
+            perspective(500px)
+            rotateX(60deg)
+            translateY(60px);
+    }
+}
+
+/* ==========================================
+   ORBES
+   ========================================== */
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    animation: float 10s ease-in-out infinite;
+}
+
+.orb-one {
+    width: 420px;
+    height: 420px;
+    background: #7b00ff;
+    top: -150px;
+    left: -100px;
+}
+
+.orb-two {
+    width: 350px;
+    height: 350px;
+    background: #b000ff;
+    right: -100px;
+    top: 30%;
+    animation-delay: -3s;
+}
+
+.orb-three {
+    width: 300px;
+    height: 300px;
+    background: #4500ff;
+    bottom: -150px;
+    left: 35%;
+    animation-delay: -6s;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(40px, -30px) scale(1.12);
+    }
+}
+
+/* ==========================================
+   CONTENEDOR
+   ========================================== */
 
 .container {
-  width: 90%;
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  text-align: center;
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
 }
 
-input[type=text], input[type=password], input[type=file] {
-  display: block;
-  width: 80%;
-  margin: 10px auto;
-  padding: 8px;
+/* ==========================================
+   HERO
+   ========================================== */
+
+.hero {
+    text-align: center;
+    margin-bottom: 35px;
+
+    animation: heroAppear 1.2s ease forwards;
 }
 
-button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  cursor: pointer;
+@keyframes heroAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.header {
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px 20px;
-  background-color: #222;
-  color: white;
-  align-items: center;
+.typing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 45px;
 }
 
-#user-info img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  vertical-align: middle;
-  margin-right: 10px;
+#typing-text {
+    font-size: clamp(26px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -1px;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #c477ff,
+        #ffffff,
+        #9c3cff,
+        #ffffff
+    );
+
+    background-size: 300% auto;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    animation: waveText 5s linear infinite;
 }
 
-#messages {
-  border: 1px solid #ccc;
-  padding: 10px;
-  height: 300px;
-  overflow-y: scroll;
-  margin-bottom: 10px;
-  background-color: #fafafa;
-  text-align: left;
+@keyframes waveText {
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 300% center;
+    }
 }
 
-.message {
-  margin-bottom: 10px;
+.cursor {
+    width: 3px;
+    height: 35px;
+    background: #b65cff;
+    margin-left: 7px;
+
+    animation: blink 0.8s infinite;
 }
 
-.message img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  vertical-align: middle;
-  margin-right: 5px;
+@keyframes blink {
+    0%,
+    45% {
+        opacity: 1;
+    }
+
+    46%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.subtitle {
+    margin-top: 12px;
+
+    color: #b9a4c8;
+
+    font-size: 15px;
+    letter-spacing: 0.5px;
+
+    animation: subtitleFloat 4s ease-in-out infinite;
+}
+
+@keyframes subtitleFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* ==========================================
+   LOGIN CARD
+   ========================================== */
+
+.login-card {
+    position: relative;
+
+    width: min(440px, 92vw);
+
+    padding: 38px 34px 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(103, 0, 160, 0.85),
+            rgba(45, 0, 76, 0.9)
+        );
+
+    border: 1px solid rgba(205, 115, 255, 0.65);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 0 35px rgba(141, 0, 255, 0.35),
+        inset 0 0 30px rgba(161, 43, 255, 0.08);
+
+    backdrop-filter: blur(20px);
+
+    overflow: hidden;
+
+    animation:
+        cardAppear 1.2s ease forwards,
+        cardFloat 6s ease-in-out infinite 1.2s;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes cardFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+/* ==========================================
+   MARCO ANIMADO
+   ========================================== */
+
+.login-card::before {
+    content: "";
+
+    position: absolute;
+    inset: -2px;
+
+    border-radius: 24px;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            transparent,
+            #b500ff,
+            transparent,
+            #7b00ff,
+            transparent
+        );
+
+    z-index: -1;
+
+    animation: borderRotate 5s linear infinite;
+}
+
+@keyframes borderRotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.card-glow {
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    background: #b000ff;
+
+    filter: blur(90px);
+
+    opacity: 0.18;
+
+    top: -100px;
+    right: -60px;
+
+    pointer-events: none;
+}
+
+/* ==========================================
+   LOGO
+   ========================================== */
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    margin-bottom: 25px;
+}
+
+.logo-symbol {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #a500ff,
+        #6200ff
+    );
+
+    box-shadow:
+        0 0 20px rgba(166, 0, 255, 0.6);
+
+    animation: logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+    0%,
+    100% {
+        box-shadow:
+            0 0 15px rgba(166, 0, 255, 0.4);
+    }
+
+    50% {
+        box-shadow:
+            0 0 30px rgba(166, 0, 255, 0.8);
+    }
+}
+
+/* ==========================================
+   SEPARADOR
+   ========================================== */
+
+.separator {
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(211, 128, 255, 0.7),
+            transparent
+        );
+
+    margin-bottom: 28px;
+}
+
+.login-card h2 {
+    text-align: center;
+
+    font-size: 24px;
+
+    margin-bottom: 12px;
+}
+
+.description {
+    text-align: center;
+
+    color: #cbb9d4;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 28px;
+}
+
+/* ==========================================
+   DISCORD BUTTON
+   ========================================== */
+
+.discord-button {
+    position: relative;
+
+    width: 100%;
+    height: 56px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7d20d9,
+            #5a00b7
+        );
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+    overflow: hidden;
+}
+
+.discord-button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.25),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    animation: buttonShine 4s infinite;
+}
+
+@keyframes buttonShine {
+    0% {
+        left: -120%;
+    }
+
+    35%,
+    100% {
+        left: 140%;
+    }
+}
+
+.discord-button:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(255, 255, 255, 0.45);
+
+    box-shadow:
+        0 10px 35px rgba(126, 0, 255, 0.45);
+}
+
+.discord-button:active {
+    transform: translateY(0);
+}
+
+.discord-icon {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.discord-icon svg {
+    width: 24px;
+    height: 24px;
+
+    fill: white;
+}
+
+.arrow {
+    position: absolute;
+    right: 18px;
+
+    font-size: 22px;
+
+    transition:
+        transform 0.25s ease;
+}
+
+.discord-button:hover .arrow {
+    transform: translateX(5px);
+}
+
+/* ==========================================
+   ESTADO
+   ========================================== */
+
+.security-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 23px;
+
+    color: #aa97b6;
+
+    font-size: 11px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #9dffbd;
+
+    box-shadow:
+        0 0 10px #55ff8c;
+
+    animation: statusPulse 2s infinite;
+}
+
+@keyframes statusPulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.75);
+    }
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+.powered {
+    text-align: center;
+
+    margin-top: 22px;
+
+    color: #8f789c;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 30px 15px;
+    }
+
+    .login-card {
+        padding: 30px 22px 24px;
+    }
+
+    #typing-text {
+        font-size: 25px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
 }
